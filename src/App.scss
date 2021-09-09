@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Pangolin';
+    src: local('Pangolin'), url(./fonts/Pangolin-Regular.ttf) format('truetype');
+  }
+
+body {
+    background-color: lightgreen;
+    font-family: Pangolin;
+    // font-size: 50px;
+    // font-weight: 900;
+}
