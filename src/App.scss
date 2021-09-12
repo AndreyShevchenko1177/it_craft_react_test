@@ -3,9 +3,67 @@
     src: local('Pangolin'), url(./fonts/Pangolin-Regular.ttf) format('truetype');
   }
 
+  :root {
+    --primary: #324851;
+    --secondary: #86ac41;
+    --system: #34675c;
+    --background: #b3c7c6;
+  }
+
 body {
-    background-color: lightgreen;
+    color: var(--primary);
+    background-color: #EEEEEE;
     font-family: Pangolin;
     // font-size: 50px;
-    // font-weight: 900;
+    font-weight: 700;
+}
+
+.appWrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.notesWrapper {
+  border: 3px solid var(--system);
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: var(--background);
+}
+
+.loginWrapper {
+  border: 3px solid var(--system);
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wrapper404 {
+  border: 3px solid var(--system);
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2{
+    text-align: center;
+
+  }
+
+  .icon {
+    cursor: pointer;
+  }
 }
