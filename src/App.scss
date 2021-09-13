@@ -29,9 +29,10 @@ body {
 .notesWrapper {
   border: 3px solid var(--system);
   width: 80%;
+  min-width: 460px;
   height: 80%;
   border-radius: 20px;
-  padding: 20px;
+  // padding: 20px;
   background-color: var(--background);
 }
 
