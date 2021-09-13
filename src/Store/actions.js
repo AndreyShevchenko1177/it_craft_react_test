@@ -4,6 +4,7 @@ import {
   LOGIN_USER,
   LOGOUT,
   NEW_NOTE,
+  RESTORE_NOTES
 } from './actionsTypeConst'
 
 export const actionNewUser = (userName)=>(dispatch)=>{
@@ -13,6 +14,8 @@ export const actionNewUser = (userName)=>(dispatch)=>{
 
 export const actionLogin = (userName)=>(dispatch)=>{
   dispatch( {type: LOGIN_USER, userName})
+  dispatch( {type: RESTORE_NOTES, userName})
+
 }
 
 export const actionLogOut = () => ({type: LOGOUT});

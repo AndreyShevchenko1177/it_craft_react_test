@@ -5,6 +5,7 @@ import {
   LOGIN_USER,
   LOGOUT,
   NEW_NOTE,
+  RESTORE_NOTES,
 } from './actionsTypeConst';
 
 
@@ -23,7 +24,7 @@ const userListReducer = (state, action) => {
   }
 
   if (action.type === NEW_USER) {
-    localStorage[action.userName] = JSON.stringify({});
+    localStorage[action.userName] = JSON.stringify([]);
     let newState = [...state, action.userName.trim()];
     newState = newState.sort((a, b) => a > b ? 1 : -1);
     localStorage.noteUsers = JSON.stringify(newState);
@@ -58,15 +59,36 @@ const currentUserReducer = (state, action) => {
 
 
 
-const notesReducer = (state=[], action) => {
+const notesReducer = (state, action) => {
+
+  if (state === undefined) {
+    if (localStorage.currentUser) {
+      action.type = RESTORE_NOTES;
+      action.userName = localStorage.currentUser;
+    } else return [];
+  }
 
   if (action.type === NEW_NOTE) {
     let newState = [action.payload, ...state];
     localStorage[localStorage.currentUser] = JSON.stringify(newState);
-    return newState
+    return newState;
   }
 
-return state
+  if (action.type === RESTORE_NOTES) {
+    let newState = [];
+    try {
+      newState = JSON.parse(localStorage[action.userName]);
+    } catch (error) {
+      console.log(error);
+    }
+    return newState;
+  }
+
+  if (action.type === LOGOUT) {
+    return [];
+  }
+
+  return state
 };
 
 

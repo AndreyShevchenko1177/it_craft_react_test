@@ -3,15 +3,17 @@ import {Button, makeStyles} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {actionLogOut, actionNewNote} from '../../Store/actions';
 import {useHistory} from 'react-router-dom';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import useStyles from './pageNotesStyle'
 import NotesListItem from './components/ListItem'
+import NoteContent from './components/NoteContent';
 
 const useStylesIcon = makeStyles((theme) => ({
     root: {
         cursor: 'pointer',
     },
 }));
+
 
 const PageNotes = function ({
     onLogout = () => {},
@@ -22,10 +24,18 @@ const PageNotes = function ({
     const classesIcon = useStylesIcon();
     const classes = useStyles()
     const history = useHistory();
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    const handleSelectedIndex = (i)=>{
+        setSelectedIndex(i)
+    }
+
+    const isSelected =(i)=>(i===selectedIndex);
 
     useEffect(() => {
         if (!currentUser) {history.push('/login');}
     }, [currentUser]);
+
 
 
 
@@ -35,16 +45,24 @@ const PageNotes = function ({
                 <ExitToAppIcon classes={{root: classesIcon.root}} onClick={() => {onLogout();}} />
             </div>
             <div className={classes.notes}>
-            <div className={classes.notesListWrapper}>
-                <div className={classes.buttonNew}>
-                    <Button variant="contained" onClick={()=>{onNewNote()}}>{'New note'}</Button>
+                <div className={classes.notesListWrapper}>
+                    <div className={classes.buttonNew}>
+                        <Button variant="contained" onClick={() => {onNewNote(); setSelectedIndex(0);}}>
+                            {'New note'}
+                        </Button>
+                    </div>
+                    <div className={classes.notesList}>
+                        {notes.map((noteItem, i) => <NotesListItem
+                            key={noteItem.id}
+                            noteItemTitle={noteItem.title}
+                            indexNumber={i}
+                            selected={isSelected(i)}
+                            handleSelectedIndex={handleSelectedIndex}
+                        />)}
+                    </div>
                 </div>
-                <div className={classes.notesList}>
-                    {notes.map((noteItem)=><NotesListItem key={noteItem.id} noteItemTitle={noteItem.title}/>)}
-                </div>
-            </div>
-            <div className={classes.notesContent}>
-                {"CONTENT"}
+                <div className={classes.notesContent}>
+                <NoteContent note={notes[selectedIndex]}/>
             </div>
 
             </div>

@@ -4,7 +4,7 @@ import {ListItemText} from '@material-ui/core';
 
 
 
-const NotesListItem = function ({noteItemTitle=''}){
+const NotesListItem = function ({noteItemTitle='', indexNumber, handleSelectedIndex, selected}){
   const classes = useStyles()
 
   return <>
@@ -13,9 +13,9 @@ const NotesListItem = function ({noteItemTitle=''}){
         classes={{root: classes.listItemRoot,}}
           button
           divider={true}
-          // selected={true}
+          selected={selected}
           // selected={selectedIndex === 0}
-          // onClick={(event) => handleListItemClick(event, 0)}
+          onClick={(event) => handleSelectedIndex(indexNumber)}
         >
         <ListItemText
           disableTypography={true}
