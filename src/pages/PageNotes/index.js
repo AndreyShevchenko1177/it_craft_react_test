@@ -1,10 +1,11 @@
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {Button, makeStyles} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {actionLogOut} from '../../Store/actions';
+import {actionLogOut, actionNewNote} from '../../Store/actions';
 import {useHistory} from 'react-router-dom';
 import {useEffect} from 'react';
 import useStyles from './pageNotesStyle'
+import NotesListItem from './components/ListItem'
 
 const useStylesIcon = makeStyles((theme) => ({
     root: {
@@ -12,7 +13,12 @@ const useStylesIcon = makeStyles((theme) => ({
     },
 }));
 
-const PageNotes = function ({onLogout = () => {}, currentUser}) {
+const PageNotes = function ({
+    onLogout = () => {},
+    currentUser,
+    notes = [],
+    onNewNote = () => {},
+}) {
     const classesIcon = useStylesIcon();
     const classes = useStyles()
     const history = useHistory();
@@ -31,10 +37,10 @@ const PageNotes = function ({onLogout = () => {}, currentUser}) {
             <div className={classes.notes}>
             <div className={classes.notesListWrapper}>
                 <div className={classes.buttonNew}>
-                    <Button variant="contained">{'New note'}</Button>
+                    <Button variant="contained" onClick={()=>{onNewNote()}}>{'New note'}</Button>
                 </div>
                 <div className={classes.notesList}>
-                    {"LIST"}
+                    {notes.map((noteItem)=><NotesListItem key={noteItem.id} noteItemTitle={noteItem.title}/>)}
                 </div>
             </div>
             <div className={classes.notesContent}>
@@ -48,6 +54,14 @@ const PageNotes = function ({onLogout = () => {}, currentUser}) {
     </>;
 };
 
-const CPageNotes = connect((s) => ({currentUser: s?.currentUser}), {onLogout: actionLogOut})(PageNotes);
+const CPageNotes = connect((s) => (
+    {
+        currentUser: s?.currentUser,
+        notes: s?.notes
+    }),
+    {
+        onLogout: actionLogOut,
+        onNewNote: actionNewNote,
+    })(PageNotes);
 
 export default CPageNotes;

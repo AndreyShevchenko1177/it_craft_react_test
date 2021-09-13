@@ -1,68 +1,86 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
-import {NEW_USER, LOGIN_USER, LOGOUT} from './actionsTypeConst'
+import {
+  NEW_USER,
+  LOGIN_USER,
+  LOGOUT,
+  NEW_NOTE,
+} from './actionsTypeConst';
 
 
 
 
-const userListReducer = (state, action) =>{
+const userListReducer = (state, action) => {
 
   console.log('--ACTION--', action);
 
   if (state === undefined) {
     if (!localStorage.noteUsers || localStorage.noteUsers.length === 0) {
-      localStorage.noteUsers=JSON.stringify([]);
-      return []
+      localStorage.noteUsers = JSON.stringify([]);
+      return [];
     }
-    return JSON.parse( localStorage.noteUsers);
+    return JSON.parse(localStorage.noteUsers);
   }
 
   if (action.type === NEW_USER) {
-    localStorage[action.userName] = JSON.stringify({})
+    localStorage[action.userName] = JSON.stringify({});
     let newState = [...state, action.userName.trim()];
-    newState = newState.sort((a,b)=>a>b ? 1 :-1);
+    newState = newState.sort((a, b) => a > b ? 1 : -1);
     localStorage.noteUsers = JSON.stringify(newState);
-    return newState
+    return newState;
   }
 
   return state;
-}
+};
 
 
-const currentUserReducer = (state, action) =>{
+const currentUserReducer = (state, action) => {
 
-  if (state=== undefined){
-    if (localStorage.currentUser){
-      return localStorage.currentUser
+  if (state === undefined) {
+    if (localStorage.currentUser) {
+      return localStorage.currentUser;
     }
-    return ''
+    return '';
   }
 
   if (action.type === LOGIN_USER) {
-    localStorage.currentUser = action.userName
-    return action.userName
+    localStorage.currentUser = action.userName;
+    return action.userName;
   }
 
   if (action.type === LOGOUT) {
     localStorage.currentUser = '';
-    return ''
+    return '';
   }
 
+  return state;
+};
 
-  return state
-}
+
+
+const notesReducer = (state=[], action) => {
+
+  if (action.type === NEW_NOTE) {
+    let newState = [action.payload, ...state];
+    localStorage[localStorage.currentUser] = JSON.stringify(newState);
+    return newState
+  }
+
+return state
+};
 
 
 export const store = createStore(
   combineReducers({
     userList: userListReducer,
     currentUser: currentUserReducer,
+    notes: notesReducer,
   }),
   applyMiddleware(thunk)
 );
 
-store.subscribe(() =>{
-  console.log('--STORE--', store.getState())
+store.subscribe(() => {
+  console.log('--STORE--', store.getState());
 });
 
-console.log('--STORE--', store.getState())
+console.log('--STORE--', store.getState());

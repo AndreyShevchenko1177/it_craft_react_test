@@ -1,14 +1,28 @@
 @font-face {
     font-family: 'Pangolin';
     src: local('Pangolin'), url(./fonts/Pangolin-Regular.ttf) format('truetype');
-  }
+}
 
-  :root {
-    --primary: #324851;
-    --secondary: #86ac41;
-    --system: #34675c;
-    --background: #b3c7c6;
-  }
+:root {
+  --primary: #324851;
+  --secondary: #86ac41;
+  --system: #34675c;
+  --background: #b3c7c6;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: var(--background);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--system);
+}
 
 body {
     color: var(--primary);
@@ -23,13 +37,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .notesWrapper {
   border: 3px solid var(--system);
+  box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.6);
   width: 80%;
-  min-width: 460px;
+  min-width: 650px;
   height: 80%;
   border-radius: 20px;
   // padding: 20px;
@@ -38,10 +52,11 @@ body {
 
 .loginWrapper {
   border: 3px solid var(--system);
+  box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.6);
   width: 80%;
   height: 80%;
   border-radius: 20px;
-  padding: 20px;
+  // padding: 20px;
   background-color: var(--background);
   display: flex;
   justify-content: center;
@@ -51,6 +66,7 @@ body {
 
 .wrapper404 {
   border: 3px solid var(--system);
+  box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.6);
   width: 80%;
   height: 80%;
   border-radius: 20px;
