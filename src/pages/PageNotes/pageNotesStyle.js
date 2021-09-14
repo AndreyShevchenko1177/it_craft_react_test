@@ -50,7 +50,7 @@ export default makeStyles((theme) => ({
 
   notesContent:{
     // border: '1px solid red',
-    padding: '10px',
+    padding: '20px 10px 10px 10px',
   },
 
   buttonNew:{
@@ -61,5 +61,47 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     height: '35px',
   },
+
+  noteContentWrapper:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'relative',
+    // border: '1px solid red',
+    // padding: '10px',
+    // boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",
+    // display: 'flex',
+    // justifyContent: 'center',
+    // height: '35px',
+  },
+
+  contentTitle: {
+    marginBottom: '10px',
+    '& input': {
+      color: 'var(--primary)',
+      fontFamily: 'Pangolin',
+      fontWeight: '500',
+    }
+  },
+
+  description: {
+    // marginBottom: '10px',
+    maxHeight: '300px',
+    '& textarea': {
+      color: 'var(--primary)',
+      fontFamily: 'Pangolin',
+      fontWeight: '500',
+    }
+  },
+
+  dateLabel: {
+    position: 'absolute',
+    top: '320px',
+    right: '0px',
+    fontWeight: '300',
+    fontSize: '0.9em',
+
+  },
+
 
 }))

@@ -91,10 +91,11 @@ const PageLogin = function ({userList = [], onCreate=()=>{}, onSelect=()=>{}, cu
 
       <TextField
         error={!!newUser && !isNewUserValid()}
-        label={isUserExists() ? 'Such user exists' : "New user"}
+        label={"New user"}
         value={newUser}
-        onChange={(e) => {setNewUser(e.target.value);}} /
-      >
+        onChange={(e) => {setNewUser(e.target.value);}}
+        helperText={(!!newUser && !isNewUserValid() ? 'Such user exists' : ' ')}
+        />
       <Button
         className={classes.button}
         variant="contained"

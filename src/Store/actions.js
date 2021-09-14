@@ -4,7 +4,8 @@ import {
   LOGIN_USER,
   LOGOUT,
   NEW_NOTE,
-  RESTORE_NOTES
+  RESTORE_NOTES,
+  SAVE_NOTE,
 } from './actionsTypeConst'
 
 export const actionNewUser = (userName)=>(dispatch)=>{
@@ -29,3 +30,8 @@ export const actionNewNote = () => ({
     msg: ''
   }
 });
+
+
+export const actionSaveNote = (payload) => ({type: SAVE_NOTE, payload});
+
+

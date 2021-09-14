@@ -6,6 +6,7 @@ import {
   LOGOUT,
   NEW_NOTE,
   RESTORE_NOTES,
+  SAVE_NOTE,
 } from './actionsTypeConst';
 
 
@@ -82,6 +83,13 @@ const notesReducer = (state, action) => {
       console.log(error);
     }
     return newState;
+  }
+
+  if (action.type === SAVE_NOTE) {
+    let index = state.findIndex((el)=>el.id===action.payload.id)
+    state[index] = {...action.payload}
+    localStorage[localStorage.currentUser] = JSON.stringify(state);
+    return [...state]
   }
 
   if (action.type === LOGOUT) {
