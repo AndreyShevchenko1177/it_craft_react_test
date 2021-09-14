@@ -3,10 +3,11 @@ import TextField from '@material-ui/core/TextField';
 import moment from "moment";
 import {useEffect, useState} from "react";
 import useStyles from '../pageNotesStyle';
-import {actionSaveNote} from '../../../Store/actions'
+import {actionSaveNote, actionDeleteNote} from '../../../Store/actions'
 import {connect} from 'react-redux';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 
-const NoteContent = function ({note: {id, date, title='', msg=''} = {}, onSaveNote}) {
+const NoteContent = function ({note: {id, date, title='', msg=''} = {}, onSaveNote, onDeleteNote}) {
 
   const classes = useStyles();
 
@@ -34,6 +35,7 @@ const NoteContent = function ({note: {id, date, title='', msg=''} = {}, onSaveNo
 
   return <>
     <div className={classes.noteContentWrapper}>
+      <div className={classes.titleAndIcon}>
       <TextField
         id="outlined-error-helper-text"
         label="Title"
@@ -46,6 +48,8 @@ const NoteContent = function ({note: {id, date, title='', msg=''} = {}, onSaveNo
         error = {!isTitleValid()}
         helperText={isTitleValid() ? ' ' : 'From 3 to 150 chars'}
       />
+      <DeleteForeverOutlinedIcon classes={{root: classes.icon}} onClick={() => {onDeleteNote(id)}} />
+      </div>
 
       <TextField
         id="outlined-error-helper-text"
@@ -70,6 +74,6 @@ const NoteContent = function ({note: {id, date, title='', msg=''} = {}, onSaveNo
   </>;
 };
 
-const CNoteContent = connect(null,{onSaveNote: actionSaveNote})(NoteContent)
+const CNoteContent = connect(null,{onSaveNote: actionSaveNote, onDeleteNote: actionDeleteNote})(NoteContent)
 
 export default CNoteContent;

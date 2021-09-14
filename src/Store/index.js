@@ -7,6 +7,7 @@ import {
   NEW_NOTE,
   RESTORE_NOTES,
   SAVE_NOTE,
+  DELETE_NOTE
 } from './actionsTypeConst';
 
 
@@ -90,6 +91,12 @@ const notesReducer = (state, action) => {
     state[index] = {...action.payload}
     localStorage[localStorage.currentUser] = JSON.stringify(state);
     return [...state]
+  }
+
+  if (action.type === DELETE_NOTE) {
+    let newState = state.filter((el)=>el.id!==action.id)
+    localStorage[localStorage.currentUser] = JSON.stringify(newState);
+    return [...newState]
   }
 
   if (action.type === LOGOUT) {

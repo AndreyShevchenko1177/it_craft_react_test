@@ -103,5 +103,19 @@ export default makeStyles((theme) => ({
 
   },
 
+  titleAndIcon: {
+    display:'grid',
+    gridTemplateColumns: "1fr 40px",
+    width: '100%',
+    justifyItems: 'right',
+  },
+
+  icon: {
+    cursor: 'pointer',
+  },
+
+  searchIcon: {
+    color: 'var(--system)'
+  },
 
 }))

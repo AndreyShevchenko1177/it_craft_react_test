@@ -27,5 +27,11 @@ export default makeStyles((theme) => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  }
+  },
+
+  icon: {
+    cursor: 'pointer',
+  },
+
+
 }));

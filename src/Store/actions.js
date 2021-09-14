@@ -6,6 +6,7 @@ import {
   NEW_NOTE,
   RESTORE_NOTES,
   SAVE_NOTE,
+  DELETE_NOTE
 } from './actionsTypeConst'
 
 export const actionNewUser = (userName)=>(dispatch)=>{
@@ -33,5 +34,6 @@ export const actionNewNote = () => ({
 
 
 export const actionSaveNote = (payload) => ({type: SAVE_NOTE, payload});
+export const actionDeleteNote = (id) => ({type: DELETE_NOTE, id});
 
 

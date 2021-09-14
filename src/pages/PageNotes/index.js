@@ -1,5 +1,6 @@
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {Button, makeStyles} from '@material-ui/core';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import {Button, InputAdornment, makeStyles, TextField} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {actionLogOut, actionNewNote} from '../../Store/actions';
 import {useHistory} from 'react-router-dom';
@@ -8,12 +9,6 @@ import useStyles from './pageNotesStyle'
 import NotesListItem from './components/ListItem'
 import NoteContent from './components/NoteContent';
 
-const useStylesIcon = makeStyles((theme) => ({
-    root: {
-        cursor: 'pointer',
-    },
-}));
-
 
 const PageNotes = function ({
     onLogout = () => {},
@@ -21,10 +16,11 @@ const PageNotes = function ({
     notes = [],
     onNewNote = () => {},
 }) {
-    const classesIcon = useStylesIcon();
     const classes = useStyles()
     const history = useHistory();
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [searchString, setSearchString] = useState('');
+    const [filteredNotes, setFilteredNotes] = useState(notes);
 
     const handleSelectedIndex = (i)=>{
         setSelectedIndex(i)
@@ -36,13 +32,35 @@ const PageNotes = function ({
         if (!currentUser) {history.push('/login');}
     }, [currentUser]);
 
+    useEffect(() => {
+        setFilteredNotes(notes.filter((el)=>el.title.toLowerCase().includes(searchString.toLowerCase())))
+    }, [searchString, notes]);
 
+'asasd'.toLowerCase()
 
 
     return <>
         <div className='notesWrapper'>
             <div className={classes.dashBoard}>
-                <ExitToAppIcon classes={{root: classesIcon.root}} onClick={() => {onLogout();}} />
+
+
+                <TextField
+                    placeholder={'Search by title'}
+                    value={searchString}
+                    onChange={(e) => setSearchString(e.target.value)}
+                    size={'small'}
+                    className={classes.margin}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchOutlinedIcon classes={{root: classes.searchIcon}} />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+
+
+                <ExitToAppIcon classes={{root: classes.icon}} onClick={() => {onLogout();}} />
             </div>
             <div className={classes.notes}>
                 <div className={classes.notesListWrapper}>
@@ -52,7 +70,7 @@ const PageNotes = function ({
                         </Button>
                     </div>
                     <div className={classes.notesList}>
-                        {notes.map((noteItem, i) => <NotesListItem
+                        {filteredNotes.map((noteItem, i) => <NotesListItem
                             key={noteItem.id}
                             noteItemTitle={noteItem.title}
                             indexNumber={i}
@@ -62,7 +80,7 @@ const PageNotes = function ({
                     </div>
                 </div>
                 <div className={classes.notesContent}>
-                <NoteContent note={notes[selectedIndex]}/>
+                <NoteContent note={filteredNotes[selectedIndex]}/>
             </div>
 
             </div>
