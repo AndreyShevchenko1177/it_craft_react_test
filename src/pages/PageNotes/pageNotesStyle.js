@@ -13,7 +13,8 @@ export default makeStyles((theme) => ({
   dashBoard:{
     display: 'grid',
     justifyItems: 'center',
-    gridTemplateColumns: "3fr 10fr 200px 20px 20px",
+    alignItems: 'center',
+    gridTemplateColumns: "8fr 10fr 200px 20px 20px",
     gridColumnGap: "20px",
     borderBottom: colors.primary,
     padding: '10px',
@@ -108,12 +109,41 @@ export default makeStyles((theme) => ({
     justifyItems: 'right',
   },
 
+  sortPanelWrapper: {
+    display:'grid',
+    gridTemplateColumns: "1fr 1fr",
+    justifyItems: 'center',
+    width: '100%',
+    '&>div':{
+      display: 'flex',
+      alignItems: 'center',
+    }
+  },
+
   icon: {
     cursor: 'pointer',
   },
 
   searchIcon: {
     color: 'var(--system)'
+  },
+
+
+  sortArrow: {
+    transition: "all 0.5s",
+
+  },
+
+  transparentIcon: {
+    opacity: '0.1',
+    transition: "all 0.5s",
+
+  },
+
+  downIcon: {
+    transform: "rotate(-180deg)",
+    transition: "all 0.5s",
+
   },
 
 }))

@@ -22,11 +22,12 @@ const PageNotes = function ({
     const history = useHistory();
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [searchString, setSearchString] = useState('');
-    const [filteredNotes, setFilteredNotes] = useState(notes);
+    const [sortedNotes, setSortedNotes] = useState([]);
+    const [filteredNotes, setFilteredNotes] = useState([]);
+    const [titleDirection, setTleDirection] = useState(0)
+    const [dateDirection, setDateDirection] = useState(0)
 
-    const handleSelectedIndex = (i) => {
-        setSelectedIndex(i);
-    };
+    const handleSelectedIndex = (i) => {setSelectedIndex(i)};
 
     const isSelected = (i) => (i === selectedIndex);
 
@@ -35,16 +36,24 @@ const PageNotes = function ({
     }, [currentUser]);
 
     useEffect(() => {
-        setFilteredNotes(notes.filter((el) => el.title.toLowerCase().includes(searchString.toLowerCase())));
-    }, [searchString, notes]);
+        setFilteredNotes(sortedNotes.filter((el) => el.title.toLowerCase().includes(searchString.toLowerCase())));
+    }, [searchString, sortedNotes]);
 
-    'asasd'.toLowerCase();
-
+    useEffect(()=>{
+        setSortedNotes([...notes]
+            .sort((a,b)=>(a.title>b.title ? 1 : -1)*titleDirection)
+            .sort((a,b)=>(a.date>b.date ? 1 : -1)*dateDirection))
+    },[titleDirection, dateDirection, notes])
 
     return <>
         <div className='notesWrapper'>
             <div className={classes.dashBoard}>
-                <SortPanel/>
+                <SortPanel
+                    titleDirection={titleDirection}
+                    setTleDirection={setTleDirection}
+                    dateDirection={dateDirection}
+                    setDateDirection={setDateDirection}
+                />
                 <SearchField searchString={searchString} setSearchString={setSearchString} />
                 <span>{`User: ${currentUser}`}</span>
                 <HelpOutlineOutlinedIcon classes={{root: classes.icon}} onClick={() => {history.push('/about')}} />
