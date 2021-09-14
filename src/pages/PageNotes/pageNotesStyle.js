@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
   dashBoard:{
     display: 'grid',
     justifyItems: 'center',
-    gridTemplateColumns: "10fr 200px 30px",
+    gridTemplateColumns: "3fr 10fr 200px 20px 20px",
     gridColumnGap: "20px",
     borderBottom: colors.primary,
     padding: '10px',
@@ -71,12 +71,6 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     position: 'relative',
-    // border: '1px solid red',
-    // padding: '10px',
-    // boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",
-    // display: 'flex',
-    // justifyContent: 'center',
-    // height: '35px',
   },
 
   contentTitle: {

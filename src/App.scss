@@ -71,17 +71,32 @@ body {
   width: 80%;
   height: 80%;
   border-radius: 20px;
-  padding: 20px;
   background-color: var(--background);
   display: flex;
   justify-content: center;
   align-items: center;
   h2{
     text-align: center;
+  }
+}
+
+.aboutWrapper {
+  border: 3px solid var(--system);
+  box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.6);
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2{
+    text-align: center;
 
   }
+}
 
-  .icon {
-    cursor: pointer;
-  }
+.icon {
+  cursor: pointer;
 }

@@ -1,4 +1,5 @@
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import {Button, InputAdornment, makeStyles, TextField} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {actionLogOut, actionNewNote} from '../../Store/actions';
@@ -8,6 +9,7 @@ import useStyles from './pageNotesStyle';
 import NotesListItem from './components/ListItem';
 import NoteContent from './components/NoteContent';
 import SearchField from './components/SearchField';
+import SortPanel from './components/SortPanel';
 
 
 const PageNotes = function ({
@@ -42,8 +44,10 @@ const PageNotes = function ({
     return <>
         <div className='notesWrapper'>
             <div className={classes.dashBoard}>
+                <SortPanel/>
                 <SearchField searchString={searchString} setSearchString={setSearchString} />
                 <span>{`User: ${currentUser}`}</span>
+                <HelpOutlineOutlinedIcon classes={{root: classes.icon}} onClick={() => {history.push('/about')}} />
                 <ExitToAppIcon classes={{root: classes.icon}} onClick={() => {onLogout();}} />
             </div>
 
