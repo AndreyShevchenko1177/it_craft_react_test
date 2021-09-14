@@ -11,6 +11,10 @@ const colors = {
 export default makeStyles((theme) => ({
 
   dashBoard:{
+    display: 'grid',
+    justifyItems: 'center',
+    gridTemplateColumns: "10fr 200px 30px",
+    gridColumnGap: "20px",
     borderBottom: colors.primary,
     padding: '10px',
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",

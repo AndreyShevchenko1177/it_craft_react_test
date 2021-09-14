@@ -1,13 +1,13 @@
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import {Button, InputAdornment, makeStyles, TextField} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {actionLogOut, actionNewNote} from '../../Store/actions';
 import {useHistory} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import useStyles from './pageNotesStyle'
-import NotesListItem from './components/ListItem'
+import useStyles from './pageNotesStyle';
+import NotesListItem from './components/ListItem';
 import NoteContent from './components/NoteContent';
+import SearchField from './components/SearchField';
 
 
 const PageNotes = function ({
@@ -16,52 +16,37 @@ const PageNotes = function ({
     notes = [],
     onNewNote = () => {},
 }) {
-    const classes = useStyles()
+    const classes = useStyles();
     const history = useHistory();
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [searchString, setSearchString] = useState('');
     const [filteredNotes, setFilteredNotes] = useState(notes);
 
-    const handleSelectedIndex = (i)=>{
-        setSelectedIndex(i)
-    }
+    const handleSelectedIndex = (i) => {
+        setSelectedIndex(i);
+    };
 
-    const isSelected =(i)=>(i===selectedIndex);
+    const isSelected = (i) => (i === selectedIndex);
 
     useEffect(() => {
         if (!currentUser) {history.push('/login');}
     }, [currentUser]);
 
     useEffect(() => {
-        setFilteredNotes(notes.filter((el)=>el.title.toLowerCase().includes(searchString.toLowerCase())))
+        setFilteredNotes(notes.filter((el) => el.title.toLowerCase().includes(searchString.toLowerCase())));
     }, [searchString, notes]);
 
-'asasd'.toLowerCase()
+    'asasd'.toLowerCase();
 
 
     return <>
         <div className='notesWrapper'>
             <div className={classes.dashBoard}>
-
-
-                <TextField
-                    placeholder={'Search by title'}
-                    value={searchString}
-                    onChange={(e) => setSearchString(e.target.value)}
-                    size={'small'}
-                    className={classes.margin}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchOutlinedIcon classes={{root: classes.searchIcon}} />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-
-
+                <SearchField searchString={searchString} setSearchString={setSearchString} />
+                <span>{`User: ${currentUser}`}</span>
                 <ExitToAppIcon classes={{root: classes.icon}} onClick={() => {onLogout();}} />
             </div>
+
             <div className={classes.notes}>
                 <div className={classes.notesListWrapper}>
                     <div className={classes.buttonNew}>
@@ -80,8 +65,8 @@ const PageNotes = function ({
                     </div>
                 </div>
                 <div className={classes.notesContent}>
-                <NoteContent note={filteredNotes[selectedIndex]}/>
-            </div>
+                    <NoteContent note={filteredNotes[selectedIndex]} />
+                </div>
 
             </div>
 
